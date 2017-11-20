@@ -4,7 +4,7 @@
 
 def main():
     try:
-        bestand = "test_alpaca.docx"
+        bestand = "alpaca_test.txt"
         headers, seqs = lees_inhoud(bestand)
         
         zoekwoord = input("Geef een zoekwoord op: ")
@@ -20,7 +20,9 @@ def main():
     except FileNotFoundError:
         print ("staat het bestand wel in de juiste map?")
     except UnicodeDecodeError:
-        print ("Is het bestand wel in fasta format")
+        print ("Is het bestand wel in fasta format?")
+    except TypeError:
+        print ("Is het wel een boolean?")
     
 def lees_inhoud(bestands_naam):
     bestand = open(bestands_naam)
@@ -49,7 +51,10 @@ def is_dna(seq):
     total = a + t + c + g
     if total == len(seq):
         dna = True
+    if type(dna) == str:
+        raise TypeError
     return dna
+    
 
 # bij deze functie kan je een deel van de code die je de afgelopen 2 afvinkopdrachten geschreven hebt herbruiken
 def knipt(alpaca_seq):
@@ -60,7 +65,5 @@ def knipt(alpaca_seq):
         if seq in alpaca_seq:
             print(naam, "knipt in sequentie")
     
-    
 
-#knipt(alpaca_seq="AAAAAAAAAA")
 main()
