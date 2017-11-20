@@ -1,11 +1,12 @@
 # Naam: Ilse den Brok
 # Datum: 20-11-2017
-# Versie: 1.0
+# Versie: 1.1
 
 def main():
     try:
-        bestand = "alpaca.fna"
+        bestand = "test_alpaca.docx"
         headers, seqs = lees_inhoud(bestand)
+        
         zoekwoord = input("Geef een zoekwoord op: ")
         for i in range(len(headers)):
             if zoekwoord in headers[i]:
@@ -18,23 +19,25 @@ def main():
                     print("Sequentie is geen DNA. Er is iets fout gegaan.")
     except FileNotFoundError:
         print ("staat het bestand wel in de juiste map?")
+    except UnicodeDecodeError:
+        print ("Is het bestand wel in fasta format")
     
 def lees_inhoud(bestands_naam):
-     bestand = open(bestands_naam)
-     headers = []
-     seqs = []
-     seq = ""
-     for line in bestand:
-         line=line.strip()
-         if ">" in line:
-             if seq != "":
-                 seqs.append(seq)
-                 seq = ""
-             headers.append(line)
-         else:
-             seq += line.strip()
-     seqs.append(seq)
-     return headers, seqs
+    bestand = open(bestands_naam)
+    headers = []
+    seqs = []
+    seq = ""
+    for line in bestand:
+        line=line.strip()
+        if ">" in line:
+            if seq != "":
+                seqs.append(seq)
+                seq = ""
+            headers.append(line)
+        else:
+            seq += line.strip()
+    seqs.append(seq)
+    return headers, seqs
 
     
 def is_dna(seq):
