@@ -4,7 +4,7 @@
 
 def main():
     try:
-        bestand = "alpaca_test.txt"
+        bestand = "alpaca.fna"
         headers, seqs = lees_inhoud(bestand)
         #bestand inlezen en splitsen in headers en sequenties
         zoekwoord = input("Geef een zoekwoord op: ")
@@ -16,6 +16,7 @@ def main():
                 if check_is_dna: 
                     print("Sequentie is DNA")
                     knipt(seqs[i])
+
                 else:
                     print("Sequentie is geen DNA. Er is iets fout gegaan.")
                 #controleer of het dna is
@@ -31,6 +32,8 @@ def main():
     except SyntaxError:
         print ("dit is niet de verwachte input")
         #error voor het geval dat knipt() niet de verwachte input krijgt
+    except:
+        print ("Onbekende Error!, raadpleeg uw systeembeheerder")
     
 def lees_inhoud(bestands_naam):
     bestand = open(bestands_naam)
